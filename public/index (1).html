@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Переїзд Україною — вантажні перевезення та евакуація</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#16202e;--mut:#5b6677;--line:#dcdfe5;--acc:#f2b705;--acc-ink:#16202e;--navy:#16202e;--navy-ink:#f6f5f1;--warn:#b3261e;--ok:#1d7a46}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1620;--card:#18222f;--ink:#eef0f3;--mut:#9aa5b5;--line:#2a3646;--navy:#0a1018;--navy-ink:#eef0f3;--warn:#ff8a80;--ok:#6fd49a}}
+:root[data-theme="dark"]{--bg:#0f1620;--card:#18222f;--ink:#eef0f3;--mut:#9aa5b5;--line:#2a3646;--navy:#0a1018;--navy-ink:#eef0f3;--warn:#ff8a80;--ok:#6fd49a}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 Onest,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:84px}
+h1,h2,h3{line-height:1.12;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,8vw,3.4rem);font-weight:800}
+h2{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:800}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0 0 1em;max-width:62ch}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+section{padding:44px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:12px;border:0;font:700 1rem Onest,system-ui,sans-serif;background:var(--acc);color:var(--acc-ink);text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;border:2px solid currentColor}
+.btn:focus-visible,input:focus-visible,select:focus-visible,.chip:focus-within{outline:3px solid var(--acc);outline-offset:2px}
+/* hero */
+.hero{background:var(--navy);color:var(--navy-ink);padding:36px 0 52px;position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(90deg,var(--acc) 0 36px,transparent 36px 60px)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;font-weight:800}
+.top a{font-weight:500;font-size:.95rem;opacity:.85}
+.hero p{font-size:1.15rem;opacity:.88}
+.hero .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.hero .ghost{color:var(--navy-ink)}
+/* calculator */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.calc{display:grid;gap:22px}
+@media(min-width:820px){.calc{grid-template-columns:1.5fr 1fr;align-items:start}}
+fieldset{border:0;padding:0;margin:0 0 22px}
+legend{font-weight:700;margin-bottom:10px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{display:block;padding:11px 16px;border:2px solid var(--line);border-radius:999px;font-weight:500;background:var(--bg)}
+.chip input:checked+span{border-color:var(--acc);background:var(--acc);color:var(--acc-ink);font-weight:700}
+.two{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.sug{position:absolute;left:0;right:0;top:100%;margin:2px 0 0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:20;max-height:280px;overflow:auto}
+.sug li{padding:12px;border-radius:8px;font:500 1rem Onest,system-ui,sans-serif;color:var(--ink);cursor:pointer}
+.sug li.on,.sug li:hover{background:var(--acc);color:var(--acc-ink)}
+label.f{position:relative;display:block;font-size:.9rem;color:var(--mut)}
+input[type=text],input[type=tel],input[type=number],select{width:100%;min-height:50px;margin-top:4px;padding:0 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:500 1rem Onest,system-ui,sans-serif}
+.res{position:sticky;top:12px}
+.price{font-size:2.1rem;font-weight:800;margin:4px 0}
+.truck{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;background:var(--bg);margin:12px 0}
+.truck b{display:block}
+.note{font-size:.85rem;color:var(--mut)}
+.prio{display:none;margin:10px 0;padding:10px 12px;border-left:5px solid var(--warn);background:var(--bg);font-size:.92rem}
+.prio.on{display:block}
+.done{display:none}.done.on{display:block}
+.ok{color:var(--ok);font-weight:700}
+pre{white-space:pre-wrap;font:inherit;background:var(--bg);padding:12px;border-radius:12px;font-size:.92rem;margin:10px 0}
+/* evacuation */
+.evac{background:var(--card);border-block:1px solid var(--line)}
+.grid{display:grid;gap:14px;margin-top:18px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+.grid.four{}
+@media(min-width:700px){.grid.four{grid-template-columns:repeat(4,1fr)}}
+.grid>div{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.grid p{margin:0;font-size:.95rem;color:var(--mut)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line)}
+th{font-size:.9rem;color:var(--mut);font-weight:500}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-weight:700;cursor:pointer}
+details p{margin:8px 0 0;color:var(--mut)}
+footer{background:var(--navy);color:var(--navy-ink);padding:30px 0;font-size:.95rem}
+/* sticky contact bar */
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);z-index:5}
+.bar a{flex:1;min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-weight:700;text-decoration:none;font-size:.95rem}
+.bar .t{background:#2a9bd8;color:#fff}.bar .v{background:#7360f2;color:#fff}.bar .c{background:var(--acc);color:var(--acc-ink)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<!-- Лічильник відвідувань: вставте сюди код Plausible, GA4 або Cloudflare Web Analytics -->
+</head>
+<body>
+
+<header class="hero">
+<div class="wrap">
+<div class="top"><span>🚚 Переїзд.UA</span><a href="#evac">Евакуація</a></div>
+<h1>Переїдемо швидко.<br>Вивеземо з небезпечної зони.</h1>
+<p>Перевезення речей по всій Україні: від кімнати до будинку. Порахуйте вартість за хвилину, без дзвінків.</p>
+<div class="row"><a class="btn" href="#calc">Розрахувати переїзд</a></div>
+</div>
+</header>
+
+<section id="calc">
+<div class="wrap">
+<h2>Калькулятор переїзду</h2>
+<div class="calc">
+<div class="card">
+<fieldset>
+<legend>Маршрут</legend>
+<div class="two">
+<label class="f">Звідки<input type="text" id="from" placeholder="Харків" autocomplete="off"></label>
+<label class="f">Куди<input type="text" id="to" placeholder="Львів" autocomplete="off"></label>
+</div>
+<label class="f" style="margin-top:10px">Відстань, км (приблизно)<input type="number" id="km" value="500" min="1" inputmode="numeric"><span class="note" id="kmnote" style="display:block;margin-top:4px">Оберіть міста зі списку, відстань порахується автоматично.</span></label><datalist id="cities"></datalist>
+</fieldset>
+
+<fieldset>
+<legend>Що перевозимо</legend>
+<div class="chips" id="kind">
+<label class="chip"><input type="radio" name="kind" value="3" data-n="Окремі речі"><span>Окремі речі</span></label>
+<label class="chip"><input type="radio" name="kind" value="5" data-n="Кімната"><span>Кімната</span></label>
+<label class="chip"><input type="radio" name="kind" value="10" data-n="1-кімнатна квартира"><span>1-кімнатна</span></label>
+<label class="chip"><input type="radio" name="kind" value="18" data-n="2-кімнатна квартира" checked><span>2-кімнатна</span></label>
+<label class="chip"><input type="radio" name="kind" value="28" data-n="3-кімнатна квартира"><span>3-кімнатна</span></label>
+<label class="chip"><input type="radio" name="kind" value="40" data-n="Будинок"><span>Будинок</span></label>
+<label class="chip"><input type="radio" name="kind" value="20" data-n="Офіс"><span>Офіс</span></label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Машина</legend>
+<select id="truck">
+<option value="auto">Підібрати автоматично</option>
+<option value="0">Авто до 20 м³</option>
+<option value="1">Авто до 40 м³</option>
+</select>
+</fieldset>
+
+<fieldset>
+<legend>Додаткові послуги</legend>
+<div class="chips">
+<label class="chip"><input type="checkbox" id="x-load"><span>Вантажники</span></label>
+<label class="chip"><input type="checkbox" id="x-pack"><span>Пакування</span></label>
+<label class="chip"><input type="checkbox" id="x-dis"><span>Розбирання меблів</span></label>
+<label class="chip"><input type="checkbox" id="x-urg"><span>Терміново</span></label>
+<label class="chip"><input type="checkbox" id="x-evac"><span>З прифронтової зони</span></label>
+</div>
+</fieldset>
+</div>
+
+<aside class="card res" aria-live="polite">
+<div class="note">Орієнтовна вартість</div>
+<div class="price" id="price">—</div>
+<div class="truck"><span style="font-size:1.8rem">🚛</span><div><b id="tname">—</b><span class="note" id="tinfo"></span></div></div>
+<div class="note" id="feed" style="margin:-4px 0 10px"></div>
+<div class="prio" id="prio"><b>Пріоритетна заявка.</b> Диспетчер зв’яжеться з вами першим.</div>
+<div id="form">
+<label class="f">Ім’я<input type="text" id="name" autocomplete="name"></label>
+<label class="f" style="margin:10px 0 14px">Телефон<input type="tel" id="phone" placeholder="+380" autocomplete="tel" inputmode="tel"></label>
+<input type="text" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+<button class="btn" style="width:100%" id="send">Залишити заявку</button>
+<div class="note" id="err" style="color:var(--warn);margin-top:8px"></div>
+</div>
+<div class="done" id="done">
+<p class="ok">Заявку надіслано ✓</p>
+<p class="note">Диспетчер зв’яжеться з вами найближчим часом.</p>
+<pre id="sum"></pre>
+</div>
+<p class="note" style="margin:12px 0 0">Остаточну ціну підтверджує диспетчер після уточнення деталей.</p>
+</aside>
+</div>
+</div>
+</section>
+
+<section class="evac" id="evac">
+<div class="wrap">
+<h2>Евакуація з прифронтових зон</h2>
+<p>Окрема лінія для тих, кому треба виїхати терміново. Такі заявки обробляємо поза чергою.</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+<div><h3>Знаємо маршрути</h3><p>Враховуємо блокпости, пропуски та комендантську годину.</p></div>
+<div><h3>Оплата по прибутті</h3><p>Часткова оплата після завантаження чи на місці призначення, за домовленістю.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<h2>Автопарк і тарифи</h2>
+<div class="tbl"><table>
+<thead><tr><th>Авто</th><th>Вантаж</th><th>Що вміститься</th><th>Від, грн/км</th></tr></thead>
+<tbody id="fleet"></tbody>
+</table></div>
+<p class="note" style="margin-top:12px">Тарифи в прототипі умовні. Підставте свої ціни в блок <code>TRUCKS</code> у коді.</p>
+</div>
+</section>
+
+<section class="evac">
+<div class="wrap">
+<h2>Як це працює</h2>
+<div class="grid four">
+<div><h3>1. Розрахунок</h3><p>Обираєте маршрут і обсяг.</p></div>
+<div><h3>2. Заявка</h3><p>Ім’я й телефон, решту уточнимо.</p></div>
+<div><h3>3. Підтвердження</h3><p>Диспетчер дзвонить, фіксуємо ціну й дату.</p></div>
+<div><h3>4. Переїзд</h3><p>Завантажуємо, їдемо, розвантажуємо.</p></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<h2>Часті питання</h2>
+<details><summary>Як рахується ціна?</summary><p>Від відстані, типу авто та додаткових послуг. Калькулятор дає орієнтир, остаточну суму називає диспетчер.</p></details>
+<details><summary>Чи є договір?</summary><p>Так, працюємо за договором.</p></details>
+<details><summary>Чи їдете в усі області?</summary><p>Працюємо по всій Україні. Зону бойових дій оцінюємо індивідуально за безпекою маршруту.</p></details>
+<details><summary>Яку машину обрати?</summary><p>Авто на 20 м³ вистачить для кімнати чи 1–2-кімнатної квартири. Для 3 кімнат і будинку потрібне авто на 40 м³. Калькулятор підбере сам.</p></details>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<b>Переїзд.UA</b><br>
+Щодня 07:00–22:00 · Телефон: +38 063 577 77 38<br>
+<span style="opacity:.7">Прототип: контакти та тарифи замініть на справжні.</span>
+</div>
+</footer>
+
+<nav class="bar" aria-label="Контакти">
+<a class="t" href="https://t.me/millioner_now" target="_blank" rel="noopener">Telegram</a>
+<a class="v" href="viber://chat?number=%2B380635777738">Viber</a>
+<a class="c" href="tel:+380635777738">Зателефонувати</a>
+</nav>
+
+<script>
+var TRUCKS=[
+{n:"Авто до 20 м³",cap:20,rate:30,min:2500,fit:"Кімната, 1–2-кімнатна квартира, офіс"},
+{n:"Авто до 40 м³",cap:40,rate:45,min:5000,fit:"3-кімнатна квартира, будинок"}
+];
+var $=function(i){return document.getElementById(i)};
+var fl=$("fleet");
+TRUCKS.forEach(function(t){var r=document.createElement("tr");r.innerHTML="<td><b>"+t.n+"</b></td><td>≈"+t.cap+" м³</td><td>"+t.fit+"</td><td>"+t.rate+"</td>";fl.appendChild(r)});
+var fmt=function(n){return Math.round(n/100)*100};
+var last={};
+function calc(){
+ var kindEl=document.querySelector('input[name=kind]:checked');
+ var vol=+kindEl.value, km=Math.max(1,+$("km").value||1), sel=$("truck").value, i=0;
+ if(sel==="auto"){while(i<TRUCKS.length-1&&TRUCKS[i].cap<vol)i++}else i=+sel;
+ var t=TRUCKS[i], trips=Math.max(1,Math.ceil(vol/t.cap));
+ var base=Math.max(t.min,t.rate*km)*trips;
+ var feed=0,fa=CITIES[nk($("from").value)],fd=CITIES[nk("Дніпро")];
+ if(i===0){
+  if(fa){var fkm=Math.round(dist(fd,fa)*1.25/5)*5;feed=fkm*t.rate*trips;
+   $("feed").textContent=fkm?"Враховано подачу авто з Дніпра: ≈"+fkm+" км":"Авто вже в Дніпрі, подача без доплати"}
+  else $("feed").textContent="Подачу з Дніпра врахуємо, коли ви оберете місто «Звідки»"
+ }else $("feed").textContent="";
+ var extra=0;
+ if($("x-load").checked)extra+=1200*(vol>18?2:1);
+ if($("x-pack").checked)extra+=vol*120;
+ if($("x-dis").checked)extra+=900;
+ var mult=($("x-urg").checked?1.15:1)*($("x-evac").checked?1.1:1);
+ var lo=fmt((base+extra+feed)*mult*0.92), hi=fmt((base+extra+feed)*mult*1.12);
+ $("price").textContent=lo.toLocaleString("uk-UA")+" – "+hi.toLocaleString("uk-UA")+" грн";
+ $("tname").textContent=(trips>1?trips+" × ":"")+t.n;
+ $("tinfo").textContent=" Обсяг ≈"+vol+" м³";
+ $("prio").className="prio"+($("x-evac").checked?" on":"");
+ last={kind:kindEl.dataset.n,truck:(trips>1?trips+" × ":"")+t.n,price:$("price").textContent,extras:[].slice.call(document.querySelectorAll(".chips input[type=checkbox]:checked")).map(function(c){return c.nextSibling.textContent})};
+}
+document.querySelector("#calc").addEventListener("input",calc);
+document.querySelector("#calc").addEventListener("change",calc);
+$("send").onclick=function(){
+ var n=$("name").value.trim(),p=$("phone").value.replace(/[^\d+]/g,"");
+ if(!n||p.length<10){$("err").textContent="Вкажіть ім’я та телефон повністю.";return}
+ $("err").textContent="";
+ var s="Заявка на переїзд\n"+n+", "+p+"\n"+($("from").value||"?")+" → "+($("to").value||"?")+", ≈"+$("km").value+" км\n"+last.kind+"\n"+last.truck+(last.extras.length?"\nПослуги: "+last.extras.join(", "):"")+"\n"+last.price;
+ var btn=$("send");btn.disabled=true;btn.textContent="Надсилаємо…";
+ fetch("/api/lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:s,hp:$("hp").value})})
+ .then(function(r){if(!r.ok)throw 0;
+  $("sum").textContent=s;$("form").style.display="none";$("done").className="done on";track("lead_sent")})
+ .catch(function(){btn.disabled=false;btn.textContent="Залишити заявку";
+  $("err").textContent="Не вдалося надіслати. Напишіть нам у Telegram або зателефонуйте."});
+};
+function track(n){try{if(window.plausible)window.plausible(n);if(window.gtag)window.gtag("event",n)}catch(e){}}
+var started=false;
+document.querySelector("#calc").addEventListener("input",function(){if(!started){started=true;track("calc_start")}});
+var CITIES={};
+"Київ,50.45,30.52;Харків,49.99,36.23;Одеса,46.48,30.73;Дніпро,48.46,35.05;Запоріжжя,47.84,35.14;Львів,49.84,24.03;Кривий Ріг,47.91,33.39;Миколаїв,46.97,32.00;Вінниця,49.23,28.47;Херсон,46.64,32.62;Полтава,49.59,34.55;Чернігів,51.49,31.29;Черкаси,49.44,32.06;Суми,50.91,34.80;Житомир,50.25,28.66;Хмельницький,49.42,26.99;Рівне,50.62,26.25;Івано-Франківськ,48.92,24.71;Тернопіль,49.55,25.59;Луцьк,50.75,25.34;Ужгород,48.62,22.30;Чернівці,48.29,25.94;Кропивницький,48.51,32.26;Біла Церква,49.80,30.12;Краматорськ,48.72,37.56;Слов’янськ,48.87,37.62;Бровари,50.51,30.79;Нікополь,47.57,34.40;Бердичів,49.89,28.60;Кам’янське,48.51,34.60;Кременчук,49.07,33.42;Павлоград,48.53,35.87;Умань,48.75,30.22;Мукачево,48.44,22.72;Дрогобич,49.35,23.51;Стрий,49.26,23.86;Коломия,48.53,25.04;Калуш,49.03,24.36;Кам’янець-Подільський,48.68,26.58;Ковель,51.22,24.71;Шептицький,50.39,24.23;Червоноград,50.39,24.23;Петропавлівка,48.52,36.46;Шахтарське,48.35,36.40;Першотравенськ,48.35,36.40;Самбір,49.52,23.20;Шостка,51.87,33.48;Конотоп,51.24,33.20;Ніжин,51.05,31.89;Прилуки,50.59,32.39;Охтирка,50.31,34.90;Ромни,50.75,33.48;Глухів,51.68,33.91;Лозова,48.89,36.32;Куп’янськ,49.71,37.62;Ізюм,49.21,37.26;Балаклія,49.46,36.86;Чугуїв,49.84,36.69;Богодухів,50.16,35.52;Вовчанськ,50.29,36.94;Зміїв,49.68,36.35;Люботин,49.95,35.93;Мерефа,49.82,36.05;Лиман,48.99,37.81;Покровськ,48.28,37.18;Костянтинівка,48.53,37.71;Дружківка,48.62,37.53;Мирноград,48.30,37.26;Добропілля,48.46,37.08;Оріхів,47.57,35.78;Вільнянськ,47.94,35.43;Енергодар,47.50,34.65;Новомосковськ,48.63,35.22;Синельникове,48.32,35.51;Марганець,47.64,34.63;Жовті Води,48.35,33.52;Олександрія,48.67,33.12;Світловодськ,49.05,33.24;Первомайськ,48.04,30.85;Вознесенськ,47.57,31.33;Южноукраїнськ,47.82,31.18;Баштанка,47.40,32.45;Ізмаїл,45.35,28.84;Білгород-Дністровський,46.19,30.34;Чорноморськ,46.30,30.66;Подільськ,47.75,29.53;Васильків,50.18,30.32;Ірпінь,50.52,30.25;Буча,50.55,30.21;Фастів,50.08,29.92;Бориспіль,50.35,30.96;Обухів,50.11,30.62;Гайсин,48.81,29.38;Жмеринка,49.04,28.11;Могилів-Подільський,48.45,27.79;Шепетівка,50.18,27.06;Славута,50.30,26.86;Дубно,50.40,25.74;Хуст,48.18,23.30;Берегове,48.20,22.64".split(";").forEach(function(s){
+ var p=s.split(",");CITIES[nk(p[0])]={n:p[0],la:+p[1],lo:+p[2]};
+ var o=document.createElement("option");o.value=p[0];$("cities").appendChild(o)});
+function nk(s){return s.replace(/[’'ʼ`]/g,"").toLowerCase().trim()}
+var manual=false;
+function dist(a,b){var R=6371,r=Math.PI/180,dl=(b.la-a.la)*r,dn=(b.lo-a.lo)*r;
+ var h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a.la*r)*Math.cos(b.la*r)*Math.sin(dn/2)*Math.sin(dn/2);
+ return 2*R*Math.asin(Math.sqrt(h))}
+function autoKm(){
+ var a=CITIES[nk($("from").value)],b=CITIES[nk($("to").value)];
+ if(a&&b){manual=false;$("km").value=Math.max(5,Math.round(dist(a,b)*1.25/5)*5);$("kmnote").textContent="Розраховано автоматично: "+a.n+" → "+b.n+". Можна змінити вручну."}
+ else if(!manual){$("kmnote").textContent="Оберіть обидва міста зі списку, і відстань порахується автоматично."}
+}
+$("from").addEventListener("input",autoKm);
+$("to").addEventListener("input",autoKm);
+$("km").addEventListener("input",function(){manual=true;$("kmnote").textContent="Відстань вказано вручну."});
+function suggest(inp){
+ var ul=document.createElement("ul"),items=[],act=-1;
+ ul.className="sug";ul.hidden=true;ul.setAttribute("role","listbox");inp.parentNode.appendChild(ul);
+ function hide(){ul.hidden=true;act=-1}
+ function mark(){[].forEach.call(ul.children,function(li,i){li.className=i===act?"on":""})}
+ function pick(c){inp.value=c.n;hide();inp.dispatchEvent(new Event("input",{bubbles:true}));hide()}
+ function show(){
+  var q=nk(inp.value);ul.innerHTML="";act=-1;
+  if(!q){hide();return}
+  var all=Object.keys(CITIES);
+  var st=all.filter(function(k){return k.indexOf(q)===0}),ct=all.filter(function(k){return k.indexOf(q)>0});
+  items=st.concat(ct).slice(0,6).map(function(k){return CITIES[k]});
+  if(!items.length||(items.length===1&&nk(items[0].n)===q)){hide();return}
+  items.forEach(function(c){var li=document.createElement("li");li.textContent=c.n;li.setAttribute("role","option");
+   li.addEventListener("pointerdown",function(e){e.preventDefault();pick(c)});ul.appendChild(li)});
+  ul.hidden=false}
+ inp.addEventListener("input",show);
+ inp.addEventListener("blur",function(){setTimeout(hide,150)});
+ inp.addEventListener("keydown",function(e){
+  if(ul.hidden)return;
+  if(e.key==="ArrowDown"){e.preventDefault();act=(act+1)%items.length;mark()}
+  else if(e.key==="ArrowUp"){e.preventDefault();act=(act<=0?items.length:act)-1;mark()}
+  else if(e.key==="Enter"&&act>=0){e.preventDefault();pick(items[act])}
+  else if(e.key==="Escape")hide()});
+}
+suggest($("from"));suggest($("to"));
+calc();
+</script>
+</body>
+</html>
