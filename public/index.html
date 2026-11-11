@@ -25,9 +25,16 @@ section{padding:44px 0}
 .btn.ghost{background:transparent;border:2px solid currentColor}
 .btn:focus-visible,input:focus-visible,select:focus-visible,.chip:focus-within{outline:3px solid var(--acc);outline-offset:2px}
 /* hero */
-.hero{background:var(--navy);color:var(--navy-ink);padding:36px 0 52px;position:relative}
+.hero{background:var(--navy);color:var(--navy-ink);padding:36px 0 96px;position:relative}
+.hero .wrap{position:relative;z-index:1}
+.hero-photo{position:absolute;inset:0;background:url(hero.jpg) 80% center/cover no-repeat}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,16,24,.88) 0,rgba(10,16,24,.62) 48%,rgba(10,16,24,.05) 78%)}
+.hero h1,.hero p{text-shadow:0 1px 14px rgba(0,0,0,.55)}
+@media(min-width:700px){.hero{min-height:460px}}
+@media(max-width:699px){.hero{padding-bottom:215px}.hero-photo{top:auto;height:215px;background-position:78% center}.hero-photo::after{background:linear-gradient(180deg,var(--navy) 0,rgba(22,32,46,0) 60%)}}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(90deg,var(--acc) 0 36px,transparent 36px 60px)}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;font-weight:800}
+.top span{font-size:clamp(1.7rem,7vw,2.4rem);line-height:1.1}
 .top a{font-weight:500;font-size:.95rem;opacity:.85}
 .hero p{font-size:1.15rem;opacity:.88}
 .hero .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
@@ -75,6 +82,7 @@ details{border-bottom:1px solid var(--line);padding:14px 0}
 summary{font-weight:700;cursor:pointer}
 details p{margin:8px 0 0;color:var(--mut)}
 footer{background:var(--navy);color:var(--navy-ink);padding:30px 0;font-size:.95rem}
+.fphone{display:inline-block;margin-top:6px;font-size:1.5rem;font-weight:800;color:var(--acc);text-decoration:none}
 /* sticky contact bar */
 .bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);z-index:5}
 .bar a{flex:1;min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-weight:700;text-decoration:none;font-size:.95rem}
@@ -86,8 +94,9 @@ footer{background:var(--navy);color:var(--navy-ink);padding:30px 0;font-size:.95
 <body>
 
 <header class="hero">
+<div class="hero-photo" aria-hidden="true"></div>
 <div class="wrap">
-<div class="top"><span>🚚 Переїзд.UA</span><a href="#evac">Евакуація</a></div>
+<div class="top"><span>🚚 Переїзд.UA</span></div>
 <h1>Переїдемо швидко.<br>Вивеземо з небезпечної зони.</h1>
 <p>Перевезення речей по всій Україні: від кімнати до будинку. Порахуйте вартість за хвилину, без дзвінків.</p>
 <div class="row"><a class="btn" href="#calc">Розрахувати переїзд</a></div>
@@ -213,20 +222,20 @@ footer{background:var(--navy);color:var(--navy-ink);padding:30px 0;font-size:.95
 <footer>
 <div class="wrap">
 <b>Переїзд.UA</b><br>
-Щодня 07:00–22:00 · Телефон: +380 00 000 00 00<br>
-<span style="opacity:.7">Прототип: контакти та тарифи замініть на справжні.</span>
+Щодня 07:00–22:00<br>
+<a class="fphone" href="tel:+380635777738">+38 063 577 77 38</a>
 </div>
 </footer>
 
 <nav class="bar" aria-label="Контакти">
-<a class="t" href="https://t.me/your_username" target="_blank" rel="noopener">Telegram</a>
-<a class="v" href="viber://chat?number=%2B380000000000">Viber</a>
-<a class="c" href="tel:+380000000000">Зателефонувати</a>
+<a class="t" href="https://t.me/millioner_now" target="_blank" rel="noopener">Telegram</a>
+<a class="v" href="viber://chat?number=%2B380635777738">Viber</a>
+<a class="c" href="tel:+380635777738">Зателефонувати</a>
 </nav>
 
 <script>
 var TRUCKS=[
-{n:"Авто до 20 м³",cap:20,rate:30,min:2500,fit:"Кімната, 1–2-кімнатна квартира, офіс"},
+{n:"Авто до 20 м³",cap:20,rate:35,min:2500,fit:"Кімната, 1–2-кімнатна квартира, офіс"},
 {n:"Авто до 40 м³",cap:40,rate:45,min:5000,fit:"3-кімнатна квартира, будинок"}
 ];
 var $=function(i){return document.getElementById(i)};
@@ -242,9 +251,9 @@ function calc(){
  var base=Math.max(t.min,t.rate*km)*trips;
  var feed=0,fa=CITIES[nk($("from").value)],fd=CITIES[nk("Дніпро")];
  if(i===0){
-  if(fa){var fkm=Math.round(dist(fd,fa)*1.25/5)*5;feed=fkm*t.rate*trips;
-   $("feed").textContent=fkm?"Враховано подачу авто з Дніпра: ≈"+fkm+" км":"Авто вже в Дніпрі, подача без доплати"}
-  else $("feed").textContent="Подачу з Дніпра врахуємо, коли ви оберете місто «Звідки»"
+  if(fa){var fkm=Math.round(dist(fd,fa)*1.25/5)*5;feed=fkm>150?0:fkm*t.rate*trips;
+   $("feed").textContent=""}
+  else $("feed").textContent=""
  }else $("feed").textContent="";
  var extra=0;
  if($("x-load").checked)extra+=1200*(vol>18?2:1);
